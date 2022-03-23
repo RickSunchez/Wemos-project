@@ -5,6 +5,7 @@
 
 #define LED 2
 
+// Параметры подключения
 const char* ssid = "Smart-home";
 const char* password = "12341234";
 const String serverIP = "http://192.168.0.100";
@@ -31,6 +32,7 @@ void setup() {
   
   server.begin();
 
+  // Пути клиента
   server.on("/whoami", []() {
     String IP = server.client().remoteIP().toString();
     
@@ -56,6 +58,7 @@ void loop() {
   server.handleClient();
   digitalWrite(LED, isOn);
 
+  // Инициирующий запрос
   if (onStart) {
     Serial.println("Send init request");
     

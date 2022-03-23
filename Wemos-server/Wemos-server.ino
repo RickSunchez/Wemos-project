@@ -14,6 +14,7 @@ struct SmartModule {
   String methods[5][2];
 };
 
+// Статические параметры сервера
 const char* ssid = "Smart-home";
 const char* password = "12341234";
 
@@ -23,6 +24,7 @@ IPAddress sn(255,255,255,0);
 
 ESP8266WebServer server(80);
 
+// Параметры подключаемых модулей
 SmartModule MODULES[MODULE_COUNT] = {
   (SmartModule) {false, "LIGHT-MODULE", "", "", 3, 
     { {"/led/on", "ON"}, {"/led/off", "OFF"}, {"/led/status", "STATUS"} } 
@@ -39,6 +41,7 @@ HTTPClient http;
 WiFiClient cli;
 
 void setup() {
+// Раскомментировать в случае, если сервер рабоатал и перестал
 //  SPIFFS.format();
 //  ESP.reset();
   
@@ -52,6 +55,7 @@ void setup() {
   
   server.begin();
 
+  // Пути веб-сервера
   server.on("/", []() {
     server.send(200, "text/html", rootPage());  
   });
@@ -131,7 +135,7 @@ void setup() {
 void loop() {
   server.handleClient();
 }
-
+// Главная страница
 String rootPage() {
   String table = "<table>";
   table += "<tr><th>ID</th><th>whoami</th><th>isOnline</th><th>clientIP</th><th>Commands</th><th>Output</th></tr>";
